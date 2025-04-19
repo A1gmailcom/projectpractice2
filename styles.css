@@ -1,0 +1,23 @@
+/* .container{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.column{
+  flex: 1;
+  min-width: 200px;
+  background-color: lightgray;
+  padding: 20px;
+  box-sizing: border-box;
+}
+@media(max-width:768px){
+  .container{
+    flex-direction: column;
+  }
+} */
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
