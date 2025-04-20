@@ -48,49 +48,87 @@
 
 // login();
 
+//ProductList
 
-async function fetchProducts() {
-  try {
-    const response = await fetch('https://api.connct.ai/v1/api/public-api/list-products');
-    const result = await response.json();
+// async function fetchProducts() {
+//   try {
+//     const response = await fetch('https://api.connct.ai/v1/api/public-api/list-products');
+//     const { cards } = await response.json();
+//     const s3BaseURL = 'https://connct-prod-images.s3.ap-south-1.amazonaws.com/';
 
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
+//     const productList = document.getElementById('product-list');
+//     productList.innerHTML = '';
 
-    // S3 Bucket URL for the images
-    const s3BaseURL = 'https://connct-prod-images.s3.ap-south-1.amazonaws.com/';
+//     cards.forEach(({ image, name, price }) => {
+//       if (!image) return; // Skip if no image
 
-    result.cards.forEach(product => {
-      // Check if the product has an image
-      if (!product.image) {
-        // If there's no image, skip this product (don't display the card)
-        return;
-      }
+//       const cardHTML = `
+//         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+//           <div class="card h-100">
+//             <img src="${s3BaseURL}${image}" class="card-img-top" alt="${name}" />
+//             <div class="card-body d-flex flex-column">
+//               <h5 class="card-title">${name}</h5>
+//               <p class="card-text">₹${price}</p>
+//               <a href="#" class="btn btn-primary mt-auto">Buy Now</a>
+//             </div>
+//           </div>
+//         </div>
+//       `;
 
-      // Construct the full S3 image URL dynamically
-      const fullImageURL = `${s3BaseURL}${product.image}`;
+//       productList.insertAdjacentHTML('beforeend', cardHTML);
+//     });
+//   } catch (err) {
+//     console.error('Failed to fetch products:', err);
+//   }
+// }
 
-      // Create the card element
-      const card = document.createElement('div');
-      card.className = 'col-12 col-sm-6 col-md-4 col-lg-3 mb-4';
+// fetchProducts();
 
-      card.innerHTML = `
-        <div class="card h-100">
-          <img src="${fullImageURL}" class="card-img-top" alt="${product.name}" />
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${product.name}</h5>
-            <p class="card-text">₹${product.price}</p>
-            <a href="#" class="btn btn-primary mt-auto">Buy Now</a>
-          </div>
-        </div>
-      `;
+//Blogs
 
-      productList.appendChild(card);
-    });
-  } catch (err) {
-    console.error('Failed to fetch products:', err);
-  }
-}
+// async function fetchBlogs() {
+//   try {
+//     const res = await fetch('https://api.connct.ai/v1/api/public-api/category-with-blogs');
+//     const { getLatestBlogs = [], categoryWithBlogs = [] } = await res.json();
 
-fetchProducts();
+//     const blogList = document.getElementById('blog-list');
+//     blogList.innerHTML = '';
+//     const s3BaseURL = 'https://connct-prod-images.s3.ap-south-1.amazonaws.com/';
+
+//     const renderBlog = (blog, category = '', subcategory = '') => {
+//       const date = new Date(blog.createdAt).toLocaleDateString();
+//       const img = blog.image ? `<img src="${s3BaseURL}${blog.image}" class="img-fluid mb-3 rounded" alt="${blog.title}">` : '';
+//       return `
+//         <div class="mb-4 p-3 border rounded shadow-sm">
+//           ${img}
+//           <h4>${blog.title}</h4>
+//           <p class="text-muted mb-1">📅 ${date}</p>
+//           <p>${blog.metaDesc || ''}</p>
+//           <p class="text-secondary mb-0">
+//             <strong>Category:</strong> ${category || blog.Category?.name || 'N/A'} |
+//             <strong>Subcategory:</strong> ${subcategory || blog.Subcategory?.name || 'N/A'}
+//           </p>
+//         </div>
+//       `;
+//     };
+
+//     console.log('Latest Blogs:', getLatestBlogs);
+//     getLatestBlogs.forEach(blog => blogList.insertAdjacentHTML('beforeend', renderBlog(blog)));
+
+//     categoryWithBlogs.forEach(({ name, Blogs = [] }) => {
+//       console.log(`Category: ${name} - Number of blogs: ${Blogs.length}`);
+//       if (!Blogs.length) return console.log(`No blogs found for category: ${name}`);
+//       Blogs.forEach(blog =>
+//         blogList.insertAdjacentHTML('beforeend', renderBlog(blog, name, blog.Subcategory?.name))
+//       );
+//     });
+
+//   } catch (err) {
+//     console.error('Failed to fetch blogs:', err);
+//   }
+// }
+
+
+// fetchBlogs();
+
 
